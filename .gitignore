@@ -40,4 +40,4 @@ captures/
 *.jks
 
 # API key
-src/main/res/values/keys.xml
+/app/src/main/res/values/keys.xml

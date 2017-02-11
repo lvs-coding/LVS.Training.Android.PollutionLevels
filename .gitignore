@@ -39,5 +39,5 @@ captures/
 # Keystore files
 *.jks
 
-# keys
-src/main/res/values/keys.xml
+# API key
+app/src/main/res/values/keys.xml

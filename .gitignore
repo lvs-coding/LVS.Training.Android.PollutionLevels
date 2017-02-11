@@ -38,3 +38,6 @@ captures/
 
 # Keystore files
 *.jks
+
+# keys
+src/main/res/values/keys.xml

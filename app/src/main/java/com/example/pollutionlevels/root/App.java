@@ -19,7 +19,6 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         final String API_BASE_URL = this.getResources().getString(R.string.base_url);
-        Log.d(LOG_TAG,"Start");
 
         component = DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this))

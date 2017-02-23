@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
         ((App) getApplication()).getComponent().inject(this);
 
+//=========        Without RxJava       ============
 //        Call<Aqicn> call = aqicnApi.getHerePollution(authToken);
 //        call.enqueue(new Callback<Aqicn>() {
 //            @Override
@@ -67,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 
-
+//=========        With RxJava       ============
         Observable<Aqicn> aqicnObservable = aqicnApi.getHerePollutionObservable(authToken);
         aqicnObservable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -85,16 +86,18 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onNext(Aqicn aqicn) {
-                        Log.i("PM2.5", "Fine particulate matter - " + aqicn.getData().getIaqi().getPm25().getV().toString());
-                        Log.i("PM10", "Respirable particulate matter - " + aqicn.getData().getIaqi().getPm10().getV().toString());
-                        Log.i("O3", "Ozone - " + aqicn.getData().getIaqi().getO3().getV().toString());
-                        Log.i("NO2", "Nitrogen dioxide - " + aqicn.getData().getIaqi().getO3().getV().toString());
-                        Log.i("SO2","Sulfur dioxide - " + aqicn.getData().getIaqi().getSo2().getV().toString());
-                        Log.i("CO","Carbon monoxide - " + aqicn.getData().getIaqi().getCo().getV().toString());
-                        Log.i("Temp","Temperature - " + aqicn.getData().getIaqi().getT().getV().toString());
-                        Log.i("Pressure","Pressure - " + aqicn.getData().getIaqi().getP().getV().toString());
-                        Log.i("Humidity","Humidity - " + aqicn.getData().getIaqi().getH().getV().toString());
-                        Log.i("Wind","Wind - " + aqicn.getData().getIaqi().getW().getV().toString());
+                        Iaqi iaqi = aqicn.getData().getIaqi();
+
+                        Log.i("PM2.5", "Fine particulate matter - " + iaqi.getPm25().getV().toString());
+                        Log.i("PM10", "Respirable particulate matter - " + iaqi.getPm10().getV().toString());
+                        Log.i("O3", "Ozone - " + iaqi.getO3().getV().toString());
+                        Log.i("NO2", "Nitrogen dioxide - " + iaqi.getO3().getV().toString());
+                        Log.i("SO2","Sulfur dioxide - " + iaqi.getSo2().getV().toString());
+                        Log.i("CO","Carbon monoxide - " + iaqi.getCo().getV().toString());
+                        Log.i("Temp","Temperature - " + iaqi.getT().getV().toString());
+                        Log.i("Pressure","Pressure - " + iaqi.getP().getV().toString());
+                        Log.i("Humidity","Humidity - " + iaqi.getH().getV().toString());
+                        Log.i("Wind","Wind - " + iaqi.getW().getV().toString());
 
                     }
                 });

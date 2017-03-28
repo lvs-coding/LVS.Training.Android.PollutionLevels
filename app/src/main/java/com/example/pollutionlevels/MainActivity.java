@@ -20,14 +20,24 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import rx.Observable;
 import rx.Observer;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
     final String LOG_TAG = MainActivity.class.getSimpleName();
+    private Subscription subscription = null;
 
     @Inject
     AqicnApi aqicnApi;
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(subscription != null) {
+            subscription.unsubscribe();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
 //=========        With RxJava       ============
         Observable<Aqicn> aqicnObservable = aqicnApi.getHerePollutionObservable(authToken);
-        aqicnObservable.subscribeOn(Schedulers.io())
+        subscription = aqicnObservable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Aqicn>() {
 
